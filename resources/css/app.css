@@ -1,0 +1,208 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+    /* eGreen Basket palette */
+    --color-leaf-50: #f2f9f1;
+    --color-leaf-100: #e0f1de;
+    --color-leaf-200: #c2e3bf;
+    --color-leaf-300: #96cd93;
+    --color-leaf-400: #64ac63;
+    --color-leaf-500: #418e43;
+    --color-leaf-600: #307233;
+    --color-leaf-700: #285b2b;
+    --color-leaf-800: #234a26;
+    --color-leaf-900: #1d3e20;
+    --color-leaf-950: #0d1f0f;
+
+    --color-cream-50: #fdfcf9;
+    --color-cream-100: #faf7ef;
+    --color-cream-200: #f3ecdb;
+    --color-cream-300: #e9dcc2;
+    --color-cream-400: #d9c49c;
+    --color-cream-500: #c9ab76;
+    --color-cream-600: #b49156;
+    --color-cream-700: #957445;
+    --color-cream-800: #785d3c;
+    --color-cream-900: #614d33;
+    --color-cream-950: #352818;
+
+    --shadow-soft: 0 1px 2px rgb(16 24 16 / 0.04), 0 8px 24px -12px rgb(16 24 16 / 0.12);
+    --shadow-lift: 0 2px 4px rgb(16 24 16 / 0.05), 0 20px 40px -16px rgb(16 24 16 / 0.2);
+
+    --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    --animate-fade-in: fade-in 0.4s ease both;
+    --animate-scale-in: scale-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@layer base {
+    [x-cloak] { display: none !important; }
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+    body {
+        @apply bg-cream-50 text-stone-800 dark:bg-leaf-950 dark:text-stone-200 font-sans;
+    }
+    ::selection {
+        @apply bg-leaf-500/25;
+    }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { @apply bg-stone-300/70 dark:bg-leaf-700/70 rounded-full border-2 border-transparent bg-clip-padding; }
+    ::-webkit-scrollbar-thumb:hover { @apply bg-stone-400/70 dark:bg-leaf-600/70; }
+
+    h1, h2, h3, .font-display { font-family: var(--font-display); }
+}
+
+@layer components {
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl px-5 py-2.5 text-sm
+            transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400
+            focus-visible:ring-offset-2 dark:focus-visible:ring-offset-leaf-950 disabled:opacity-50
+            disabled:cursor-not-allowed active:scale-[0.98] cursor-pointer select-none whitespace-nowrap;
+    }
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl px-5 py-2.5 text-sm
+            transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400
+            focus-visible:ring-offset-2 dark:focus-visible:ring-offset-leaf-950 disabled:opacity-50
+            disabled:cursor-not-allowed active:scale-[0.98] cursor-pointer select-none whitespace-nowrap
+            bg-leaf-600 text-white hover:bg-leaf-700 shadow-soft hover:shadow-lift;
+    }
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl px-5 py-2.5 text-sm
+            transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400
+            focus-visible:ring-offset-2 dark:focus-visible:ring-offset-leaf-950 disabled:opacity-50
+            disabled:cursor-not-allowed active:scale-[0.98] cursor-pointer select-none whitespace-nowrap
+            bg-white text-stone-700 border border-stone-200 hover:border-leaf-300 hover:text-leaf-700
+            dark:bg-leaf-900 dark:text-stone-200 dark:border-leaf-800 dark:hover:border-leaf-600 shadow-soft;
+    }
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl px-5 py-2.5 text-sm
+            transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400
+            focus-visible:ring-offset-2 dark:focus-visible:ring-offset-leaf-950 disabled:opacity-50
+            disabled:cursor-not-allowed active:scale-[0.98] cursor-pointer select-none whitespace-nowrap
+            text-stone-600 hover:text-leaf-700 hover:bg-leaf-50 dark:text-stone-300 dark:hover:text-leaf-300 dark:hover:bg-leaf-900/60;
+    }
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl px-5 py-2.5 text-sm
+            transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400
+            focus-visible:ring-offset-2 dark:focus-visible:ring-offset-leaf-950 disabled:opacity-50
+            disabled:cursor-not-allowed active:scale-[0.98] cursor-pointer select-none whitespace-nowrap
+            bg-red-600 text-white hover:bg-red-700 shadow-soft;
+    }
+    .btn-sm { @apply px-3.5 py-2 text-xs rounded-lg; }
+
+    /* Cards */
+    .card {
+        @apply bg-white dark:bg-leaf-900/70 border border-stone-200/80 dark:border-leaf-800/80
+            rounded-2xl shadow-soft;
+    }
+    .card-hover { @apply transition-all duration-300 hover:shadow-lift hover:-translate-y-0.5; }
+
+    /* Forms */
+    .input {
+        @apply w-full rounded-xl border border-stone-200 dark:border-leaf-800 bg-white dark:bg-leaf-900/60
+            px-4 py-2.5 text-sm text-stone-800 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500
+            focus:outline-none focus:ring-2 focus:ring-leaf-400/60 focus:border-leaf-400 transition-shadow;
+    }
+    .input-label { @apply block text-sm font-semibold text-stone-700 dark:text-stone-200 mb-1.5; }
+    .input-error { @apply text-xs text-red-600 dark:text-red-400 mt-1 font-medium; }
+
+    /* Badges */
+    .badge { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap; }
+    .badge-green { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap bg-leaf-100 text-leaf-800 dark:bg-leaf-500/15 dark:text-leaf-300; }
+    .badge-amber { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300; }
+    .badge-red { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300; }
+    .badge-blue { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap bg-sky-100 text-sky-800 dark:bg-sky-500/15 dark:text-sky-300; }
+    .badge-stone { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap bg-stone-100 text-stone-700 dark:bg-stone-500/15 dark:text-stone-300; }
+
+    /* Nav */
+    .nav-link {
+        @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-stone-600
+            dark:text-stone-300 hover:bg-leaf-50 hover:text-leaf-800 dark:hover:bg-leaf-800/60 dark:hover:text-leaf-200
+            transition-colors;
+    }
+    .nav-link-active {
+        @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-soft
+            bg-leaf-600 text-white hover:bg-leaf-600 dark:bg-leaf-600 dark:hover:bg-leaf-600;
+    }
+
+    /* Hero background image + readability overlays */
+    .hero-bg {
+        background-color: var(--color-leaf-950);
+        background-image: var(--hero-image);
+        background-size: cover;
+        background-position: center;
+    }
+    /* Phones get the 512px variant (79% lighter) instead of the full-size photo */
+    @media (max-width: 767px) {
+        .hero-bg { background-image: var(--hero-image-sm, var(--hero-image)); }
+    }
+    .hero-overlay { background: linear-gradient(120deg, rgb(13 31 15 / 0.82) 0%, rgb(29 62 32 / 0.6) 55%, rgb(13 31 15 / 0.45) 100%); }
+    .hero-overlay-light { background: linear-gradient(120deg, rgb(253 252 249 / 0.92) 0%, rgb(253 252 249 / 0.7) 55%, rgb(253 252 249 / 0.4) 100%); }
+
+    /* Brand gradient band for inner page headers — keeps the hero photo unique to the homepage and auth pages */
+    .page-hero {
+        background-color: var(--color-leaf-900);
+        background-image:
+            radial-gradient(70rem 34rem at 8% -30%, rgb(65 142 67 / 0.45), transparent 62%),
+            radial-gradient(52rem 28rem at 102% 130%, rgb(201 171 118 / 0.3), transparent 58%),
+            linear-gradient(135deg, var(--color-leaf-950) 0%, var(--color-leaf-800) 58%, var(--color-leaf-700) 100%);
+    }
+
+    /* Skeleton loader */
+    .skeleton {
+        @apply relative overflow-hidden bg-stone-200/70 dark:bg-leaf-800/60 rounded-xl;
+    }
+    .skeleton::after {
+        content: '';
+        @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-leaf-700/30;
+        animation: shimmer 1.4s infinite;
+    }
+}
+
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
+
+/* Leaflet dark-mode tiles + popups */
+.leaflet-container { font-family: var(--font-sans); z-index: 0; border-radius: 1rem; }
+.dark .leaflet-tile { filter: brightness(0.75) saturate(0.85) contrast(1.05); }
+/* Prefixed with .leaflet-container so these win over leaflet.css (same-specificity rules load after). */
+.leaflet-container .leaflet-popup-content-wrapper {
+    @apply rounded-xl shadow-lift border border-stone-200 dark:border-leaf-800 bg-white dark:bg-leaf-900;
+}
+.leaflet-container .leaflet-popup-content { @apply text-sm text-stone-700 dark:text-stone-200 m-3; }
+.leaflet-container .leaflet-popup-tip { @apply bg-white dark:bg-leaf-900; }
+.leaflet-container .map-popup-link { @apply inline-block mt-1.5 font-semibold text-leaf-700 dark:text-leaf-300 underline; }
+.leaflet-container .leaflet-bar a { @apply dark:bg-leaf-900 dark:text-stone-200 dark:border-leaf-800; }
+
+/* Toast slide */
+@keyframes toast-in { from { opacity: 0; transform: translateY(12px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.toast-enter { animation: toast-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
